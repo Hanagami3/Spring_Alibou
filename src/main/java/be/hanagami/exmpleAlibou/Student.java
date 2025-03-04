@@ -1,5 +1,7 @@
 package be.hanagami.exmpleAlibou;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,27 +16,43 @@ public class Student {
             name = "c-fname",
             length = 20
     )
-    private String Firstname;
-    private String Lastname;
+    private String firstname;
+    private String lastname;
 
     @Column(
             unique = true
     )
-    private String Email;
+    private String email;
     private int age;
+
+    @OneToOne(
+            mappedBy = "student",
+            cascade = CascadeType.ALL
+    )
+    private StudentProfile studentProfile;
+
+
+    @ManyToOne
+    @JoinColumn(
+            name = "school_id"
+    )
+    @JsonBackReference
+    private School school;
 
     @Column(
             updatable = false
     )
     private String some_column;
 
+
+
     public Student() {
     }
 
     public Student(String firstname, String lastname, String email, int age) {
-        Firstname = firstname;
-        Lastname = lastname;
-        Email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
         this.age = age;
     }
 
@@ -47,27 +65,27 @@ public class Student {
     }
 
     public String getFirstname() {
-        return Firstname;
+        return firstname;
     }
 
     public void setFirstname(String firstname) {
-        Firstname = firstname;
+        this.firstname = firstname;
     }
 
     public String getLastname() {
-        return Lastname;
+        return lastname;
     }
 
     public void setLastname(String lastname) {
-        Lastname = lastname;
+        this.lastname = lastname;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public int getAge() {
@@ -76,5 +94,21 @@ public class Student {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public StudentProfile getStudentProfile() {
+        return studentProfile;
+    }
+
+    public void setStudentProfile(StudentProfile studentProfile) {
+        this.studentProfile = studentProfile;
+    }
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
     }
 }

@@ -1,4 +1,4 @@
-package be.hanagami.exmpleAlibou;
+package be.hanagami.exmpleAlibou.partie2;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
