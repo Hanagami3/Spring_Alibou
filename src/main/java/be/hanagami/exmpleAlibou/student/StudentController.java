@@ -1,4 +1,4 @@
-package be.hanagami.exmpleAlibou;
+package be.hanagami.exmpleAlibou.student;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -8,37 +8,38 @@ import java.util.List;
 @RestController//need to have spring-boot-starter-web in the pom.xml
 public class StudentController {
 
-    private final StudentRepository studentRepository;
+    private final StudentService studentService;
 
-    public StudentController(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
     }
 
     @PostMapping("/students")
-    public Student post(
-            @RequestBody Student student
+    public StudentResponseDto saveStudent(
+            //@RequestBody Student student
+            @RequestBody StudentDto dto
     ){
-        return studentRepository.save(student);
+        return this.studentService.saveStudent(dto);
     }
 
+
     @GetMapping("/students")
-    public List<Student> findAllStudents(){
-        return studentRepository.findAll();
+    public List<StudentResponseDto> findAllStudents(){
+        return studentService.findAllStudents();
     }
 
     @GetMapping("/students/{student-id}")
-    public Student findAllStudents(
+    public StudentResponseDto findStudentsById(
             @PathVariable("student-id") Integer id
     ){
-      return studentRepository.findById(id)
-              .orElse(new Student());
+      return studentService.findStudentsById(id);
     }
 
     @GetMapping("/students/search/{student-name}")
-    public List<Student> findStudentsByName(
+    public List<StudentResponseDto> findStudentsByName(
             @PathVariable("student-name") String  name
     ){
-      return studentRepository.findAllByFirstnameContaining(name);
+      return studentService.findStudentsByName(name);
     }
 
     @DeleteMapping("/students/{student-id}")
@@ -46,7 +47,7 @@ public class StudentController {
     public void delete(
             @PathVariable("student-id") Integer studentId
     ){
-        studentRepository.deleteById(studentId);
+        studentService.delete(studentId);
     }
 
 //    @GetMapping("/hello")

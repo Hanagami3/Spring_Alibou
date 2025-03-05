@@ -1,7 +1,8 @@
-package be.hanagami.exmpleAlibou;
+package be.hanagami.exmpleAlibou.student;
 
+import be.hanagami.exmpleAlibou.school.School;
+import be.hanagami.exmpleAlibou.studentProfile.StudentProfile;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
