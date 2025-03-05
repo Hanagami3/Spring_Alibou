@@ -1,5 +1,6 @@
-package be.hanagami.exmpleAlibou;
+package be.hanagami.exmpleAlibou.studentProfile;
 
+import be.hanagami.exmpleAlibou.student.Student;
 import jakarta.persistence.*;
 
 @Entity
